@@ -22,12 +22,18 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class Catalog {
 
+    ConcurrentHashMap<Integer, Table> tableIdMap;
+
+    ConcurrentHashMap<String, Integer> tableNameMap;
+
     /**
      * Constructor.
      * Creates a new, empty catalog.
      */
     public Catalog() {
         // TODO: some code goes here
+        tableIdMap = new ConcurrentHashMap<Integer, Table>();
+        tableNameMap = new ConcurrentHashMap<>();
     }
 
     /**
@@ -42,6 +48,8 @@ public class Catalog {
      */
     public void addTable(DbFile file, String name, String pkeyField) {
         // TODO: some code goes here
+        tableIdMap.put(file.getId(), new Table(file, name, pkeyField));
+        tableNameMap.put(name, file.getId());
     }
 
     public void addTable(DbFile file, String name) {
@@ -67,46 +75,65 @@ public class Catalog {
      */
     public int getTableId(String name) throws NoSuchElementException {
         // TODO: some code goes here
-        return 0;
+        if (name != null && tableNameMap.containsKey(name)) {
+            return tableNameMap.get(name);
+        }
+        throw new NoSuchElementException("The table doesn't exist");
     }
 
     /**
      * Returns the tuple descriptor (schema) of the specified table
      *
-     * @param tableid The id of the table, as specified by the DbFile.getId()
+     * @param tableId The id of the table, as specified by the DbFile.getId()
      *                function passed to addTable
      * @throws NoSuchElementException if the table doesn't exist
      */
-    public TupleDesc getTupleDesc(int tableid) throws NoSuchElementException {
+    public TupleDesc getTupleDesc(int tableId) throws NoSuchElementException {
         // TODO: some code goes here
-        return null;
+        if (tableIdMap.containsKey(tableId)) {
+            Table table = tableIdMap.get(tableId);
+            return table.getFile().getTupleDesc();
+        }
+        throw new NoSuchElementException("The table doesn't exist");
     }
 
     /**
      * Returns the DbFile that can be used to read the contents of the
      * specified table.
      *
-     * @param tableid The id of the table, as specified by the DbFile.getId()
+     * @param tableId The id of the table, as specified by the DbFile.getId()
      *                function passed to addTable
      */
-    public DbFile getDatabaseFile(int tableid) throws NoSuchElementException {
+    public DbFile getDatabaseFile(int tableId) throws NoSuchElementException {
         // TODO: some code goes here
-        return null;
+        if (tableIdMap.containsKey(tableId)) {
+            Table table = tableIdMap.get(tableId);
+            return table.getFile();
+        }
+        throw new NoSuchElementException("The table doesn't exist");
     }
 
-    public String getPrimaryKey(int tableid) {
+    public String getPrimaryKey(int tableId) {
         // TODO: some code goes here
-        return null;
+        if (tableIdMap.containsKey(tableId)) {
+            Table table = tableIdMap.get(tableId);
+            return table.getPkeyField();
+        }
+        throw new NoSuchElementException("The table doesn't exist");
     }
 
     public Iterator<Integer> tableIdIterator() {
         // TODO: some code goes here
-        return null;
+        return tableIdMap.keySet().iterator();
     }
 
     public String getTableName(int id) {
         // TODO: some code goes here
-        return null;
+        if (tableIdMap.containsKey(id)) {
+            Table table = tableIdMap.get(id);
+            return table.getName();
+        }
+        throw new NoSuchElementException("The table doesn't exist");
     }
 
     /**
@@ -114,6 +141,8 @@ public class Catalog {
      */
     public void clear() {
         // TODO: some code goes here
+        tableIdMap.clear();
+        tableNameMap.clear();
     }
 
     /**
