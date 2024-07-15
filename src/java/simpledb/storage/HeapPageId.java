@@ -6,6 +6,19 @@ import java.util.Objects;
  * Unique identifier for HeapPage objects.
  */
 public class HeapPageId implements PageId {
+    /**
+     * 被引用的数据表
+     */
+    private int tableId;
+
+    /**
+     * 表格所在的页表id
+     */
+    private int pgNo;
+
+    /*
+     * 理解为是表id（HeapPageId)与其子页的关系映射的数据结构：如表1-1 表1-2...
+     */
 
     /**
      * Constructor. Create a page id structure for a specific page of a
@@ -16,6 +29,8 @@ public class HeapPageId implements PageId {
      */
     public HeapPageId(int tableId, int pgNo) {
         // TODO: some code goes here
+        this.tableId = tableId;
+        this.pgNo = pgNo;
     }
 
     /**
@@ -23,7 +38,7 @@ public class HeapPageId implements PageId {
      */
     public int getTableId() {
         // TODO: some code goes here
-        return 0;
+        return tableId;
     }
 
     /**
@@ -32,7 +47,15 @@ public class HeapPageId implements PageId {
      */
     public int getPageNumber() {
         // TODO: some code goes here
-        return 0;
+        return pgNo;
+    }
+
+    public void setTableId(int tableId) {
+        this.tableId = tableId;
+    }
+
+    public void setPageNumber(int pgNo) {
+        this.pgNo = pgNo;
     }
 
     /**
@@ -43,7 +66,8 @@ public class HeapPageId implements PageId {
      */
     public int hashCode() {
         // TODO: some code goes here
-        throw new UnsupportedOperationException("implement this");
+        return getPageNumber() * 1000 + getTableId();
+//        throw new UnsupportedOperationException("implement this");
     }
 
     /**
@@ -55,6 +79,10 @@ public class HeapPageId implements PageId {
      */
     public boolean equals(Object o) {
         // TODO: some code goes here
+        if (o instanceof HeapPageId) {
+            HeapPageId other = (HeapPageId) o;
+            return this.getPageNumber() == other.getPageNumber() && this.getTableId() == other.getTableId();
+        }
         return false;
     }
 

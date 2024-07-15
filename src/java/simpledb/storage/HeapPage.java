@@ -7,7 +7,9 @@ import simpledb.common.Debug;
 import simpledb.transaction.TransactionId;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
@@ -21,8 +23,16 @@ public class HeapPage implements Page {
 
     final HeapPageId pid;
     final TupleDesc td;
+
+    /**
+     * 表示tuple状态的比特位图
+     */
     final byte[] header;
     final Tuple[] tuples;
+
+    /**
+     * 每个页面中的槽目录
+     */
     final int numSlots;
 
     byte[] oldData;
@@ -76,8 +86,9 @@ public class HeapPage implements Page {
      */
     private int getNumTuples() {
         // TODO: some code goes here
-        return 0;
-
+        int page_bits = BufferPool.getPageSize() * 8;
+        int tuple_bits = (td.getSize() * 8 + 1);
+        return page_bits / tuple_bits;  // int/int=int
     }
 
     /**
@@ -86,10 +97,8 @@ public class HeapPage implements Page {
      * @return the number of bytes in the header of a page in a HeapFile with each tuple occupying tupleSize bytes
      */
     private int getHeaderSize() {
-
         // TODO: some code goes here
-        return 0;
-
+        return (int)Math.ceil((double)getNumTuples() / 8.0);
     }
 
     /**
@@ -122,7 +131,7 @@ public class HeapPage implements Page {
      */
     public HeapPageId getId() {
         // TODO: some code goes here
-        throw new UnsupportedOperationException("implement this");
+        return pid;
     }
 
     /**
@@ -242,7 +251,7 @@ public class HeapPage implements Page {
      */
     public static byte[] createEmptyPageData() {
         int len = BufferPool.getPageSize();
-        return new byte[len]; //all 0
+        return new byte[len];  //all 0
     }
 
     /**
@@ -294,7 +303,13 @@ public class HeapPage implements Page {
      */
     public int getNumUnusedSlots() {
         // TODO: some code goes here
-        return 0;
+        int cnt = 0;
+        for (int i = 0; i < numSlots; i++) {
+            if (!isSlotUsed(i)) {
+                cnt++;
+            }
+        }
+        return cnt;
     }
 
     /**
@@ -302,7 +317,12 @@ public class HeapPage implements Page {
      */
     public boolean isSlotUsed(int i) {
         // TODO: some code goes here
-        return false;
+        // 计算在header中的位置(哪一个字节)
+        int iTh = i / 8;
+        // 计算具体在bitmap中的位置(哪一个比特位，或者理解为header字节位中的比特偏移量)
+        int bitTh = i % 8;
+        int onBit = (header[iTh] >> bitTh) & 1;
+        return onBit == 1;
     }
 
     /**
@@ -319,7 +339,13 @@ public class HeapPage implements Page {
      */
     public Iterator<Tuple> iterator() {
         // TODO: some code goes here
-        return null;
+        List<Tuple> tupleList = new ArrayList<>();
+        for (int i = 0; i < numSlots; i++) {
+            if (isSlotUsed(i)) {
+                tupleList.add(tuples[i]);
+            }
+        }
+        return tupleList.iterator();
     }
 
 }
