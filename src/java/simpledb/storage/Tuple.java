@@ -112,8 +112,8 @@ public class Tuple implements Serializable {
         int index = 0;
         while (tdItems.hasNext()) {
             TupleDesc.TDItem tdItem = tdItems.next();
-            stringBuilder.append("FieldName: ").append(tdItem.toString()).append("=== >");
-            stringBuilder.append("Value: ").append(fields.get(index++).toString());
+            stringBuilder.append("FieldName:").append(tdItem.toString()).append("===>");
+            stringBuilder.append("Value:").append(fields.get(index++).toString()).append(" ");
         }
         return stringBuilder.toString();
     }

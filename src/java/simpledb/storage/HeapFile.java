@@ -94,7 +94,7 @@ public class HeapFile implements DbFile {
         try {
             randomAccessFile = new RandomAccessFile(f, "r");
             // 保证pid页面的结束位置不大于文件randomFile的长度
-            if ((long) (pgNo + 1) * BufferPool.getPageSize() > randomAccessFile.length()) {
+            if ((long) pgNo * BufferPool.getPageSize() > randomAccessFile.length()) {
                 randomAccessFile.close();
                 throw new IllegalArgumentException(String.format("table %d page %d is invalid", tableId, pgNo));
             }

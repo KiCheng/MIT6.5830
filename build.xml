@@ -46,9 +46,9 @@
             <!-- avoids needing ant clean when changing interfaces -->
             <depend srcdir="@{srcdir}" destdir="@{destdir}" cache="${depcache}"/>
             <javac srcdir="@{srcdir}" destdir="@{destdir}" includeAntRuntime="no"
-                    debug="${compile.debug}" source="${sourceversion}">
+                    debug="${compile.debug}" source="17" target="17">
                 <compilerarg value="-Xlint:unchecked" />
-                <!--<compilerarg value="-Xlint:deprecation" />-->
+<!--                    <compilerarg value="&#45;&#45;release"/>-->
                 <compileoptions/>
             </javac>
         </sequential>
