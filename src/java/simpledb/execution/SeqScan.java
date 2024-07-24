@@ -3,6 +3,7 @@ package simpledb.execution;
 import simpledb.common.Database;
 import simpledb.common.DbException;
 import simpledb.common.Type;
+import simpledb.storage.DbFile;
 import simpledb.storage.DbFileIterator;
 import simpledb.storage.Tuple;
 import simpledb.storage.TupleDesc;
@@ -117,7 +118,7 @@ public class SeqScan implements OpIterator {
     public boolean hasNext() throws TransactionAbortedException, DbException {
         // TODO: some code goes here
         if (dbFileIterator == null)
-            return false;
+            throw new NoSuchElementException("The dbFileIterator is null");
         return dbFileIterator.hasNext();
     }
 
@@ -142,6 +143,7 @@ public class SeqScan implements OpIterator {
     public void rewind() throws DbException, NoSuchElementException,
             TransactionAbortedException {
         // TODO: some code goes here
-        dbFileIterator.rewind();
+        close();
+        open();
     }
 }

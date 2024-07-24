@@ -8,10 +8,7 @@ import simpledb.transaction.TransactionAbortedException;
 import simpledb.transaction.TransactionId;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 /**
  * HeapFile is an implementation of a DbFile that stores a collection of tuples
@@ -35,12 +32,88 @@ public class HeapFile implements DbFile {
     private final TupleDesc td;
 
     /**
+     * 迭代器内部类
+     */
+    private static class HeapFileIterator implements DbFileIterator {
+
+        private final TransactionId tid;
+        private final HeapFile heapFile;
+
+        /**
+         * 元组迭代器
+         */
+        private Iterator<Tuple> tupleIterator;
+        /**
+         * 当前页面索引
+         */
+        private int index;
+
+        public HeapFileIterator(TransactionId tid, HeapFile heapFile) {
+            this.tid = tid;
+            this.heapFile = heapFile;
+        }
+
+        @Override
+        public void open() throws DbException, TransactionAbortedException {
+            index = 0;
+            tupleIterator = getTupleIterator(index);
+        }
+
+        private Iterator<Tuple> getTupleIterator(int pageNumber) throws TransactionAbortedException, DbException {
+            if (pageNumber >= 0 && pageNumber < heapFile.numPages()) {
+                HeapPageId heapPageId = new HeapPageId(heapFile.getId(), pageNumber);
+                HeapPage heapPage = (HeapPage) Database.getBufferPool().getPage(tid, heapPageId, Permissions.READ_ONLY);
+                return heapPage.iterator();
+            } else {
+                throw new DbException(String.format("heapFile %d does not exist in page %d", heapFile.getId(), pageNumber));
+            }
+        }
+
+        @Override
+        public boolean hasNext() throws DbException, TransactionAbortedException {
+            if (tupleIterator == null) {
+                return false;
+            }
+            while(!tupleIterator.hasNext()) {
+                // 如果当前页面没有元组，则切换到下一个页面
+                index++;
+                if(index < heapFile.numPages()) {
+                    tupleIterator = getTupleIterator(index);
+                } else {
+                    return false;
+                }
+            }
+            // 如果当前页面还有元组，则返回true
+            return true;
+        }
+
+        @Override
+        public Tuple next() throws DbException, TransactionAbortedException, NoSuchElementException {
+            if (tupleIterator == null || !tupleIterator.hasNext()) {
+                throw new NoSuchElementException();
+            }
+            return tupleIterator.next();
+        }
+
+        @Override
+        public void rewind() throws DbException, TransactionAbortedException {
+            close();
+            open();
+        }
+
+        @Override
+        public void close() {
+            tupleIterator = null;
+        }
+    }
+
+    /**
      * Constructs a heap file backed by the specified file.
      *
      * @param f the file that stores the on-disk backing store for this heap
      *          file.
      */
-    public HeapFile(File f, TupleDesc td) {
+        public HeapFile(File f, TupleDesc td) {
         // TODO: some code goes here
         this.f = f;
         this.td = td;
@@ -86,10 +159,8 @@ public class HeapFile implements DbFile {
         int tableId = pid.getTableId();
         int pgNo = pid.getPageNumber();
         int offset = pgNo * BufferPool.getPageSize();
-        /**
-         * randomaccessfile try-catch-finally
-         * TODO: some code goes here
-         */
+
+        // randomaccessfile try-catch-finally
         RandomAccessFile randomAccessFile = null;
         try {
             randomAccessFile = new RandomAccessFile(f, "r");
@@ -128,6 +199,18 @@ public class HeapFile implements DbFile {
     public void writePage(Page page) throws IOException {
         // TODO: some code goes here
         // not necessary for lab1
+        PageId pageId = page.getId();
+        int pageNo = pageId.getPageNumber();
+        int offset = pageNo * BufferPool.getPageSize();
+        byte[] pageData = page.getPageData();
+
+        RandomAccessFile file = new RandomAccessFile(f, "rw");
+        file.seek(offset);
+        file.write(pageData);
+        file.close();
+
+        // 标记脏页
+        page.markDirty(false, null);
     }
 
     /**
@@ -144,16 +227,39 @@ public class HeapFile implements DbFile {
     public List<Page> insertTuple(TransactionId tid, Tuple t)
             throws DbException, IOException, TransactionAbortedException {
         // TODO: some code goes here
-        return null;
-        // not necessary for lab1
+        ArrayList<Page> pageList = new ArrayList<>();
+        for (int i = 0; i < numPages(); i++) {
+            HeapPage p = (HeapPage) Database.getBufferPool().getPage(tid, new HeapPageId(getId(), i),
+                    Permissions.READ_WRITE);
+            if (p.getNumUnusedSlots() == 0) {
+                // 当前页面没有空闲槽位
+                continue;
+            }
+            p.insertTuple(t);
+            pageList.add(p);
+            return pageList;
+        }
+        // 没有找到合适的页面，需要创建新的页面
+        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(f, true));
+        byte[] emptyData = HeapPage.createEmptyPageData();
+        bos.write(emptyData);
+        bos.close();
+        // 加载入BufferPool
+        HeapPage p = (HeapPage) Database.getBufferPool().getPage(tid, new HeapPageId(getId(), numPages()-1),
+                Permissions.READ_WRITE);  // pgNo: numPages()方法的返回值是基于文件当前的大小动态计算的
+        p.insertTuple(t);
+        pageList.add(p);
+        return pageList;
     }
 
     // see DbFile.java for javadocs
     public List<Page> deleteTuple(TransactionId tid, Tuple t) throws DbException,
             TransactionAbortedException {
         // TODO: some code goes here
-        return null;
         // not necessary for lab1
+        HeapPage p = (HeapPage) Database.getBufferPool().getPage(tid, t.getRecordId().getPageId(), Permissions.READ_WRITE);
+        p.deleteTuple(t);
+        return Collections.singletonList(p);
     }
 
     // see DbFile.java for javadocs
@@ -161,78 +267,5 @@ public class HeapFile implements DbFile {
         // TODO: some code goes here
         return new HeapFileIterator(tid, this);
     }
-
-    private static class HeapFileIterator implements DbFileIterator {
-
-        private final TransactionId tid;
-        private final HeapFile heapFile;
-
-        /**
-         * 堆文件迭代器
-         */
-        private Iterator<Tuple> tupleIterator;
-        private int index;
-
-        public HeapFileIterator(TransactionId tid, HeapFile heapFile) {
-            this.tid = tid;
-            this.heapFile = heapFile;
-        }
-
-        @Override
-        public void open() throws DbException, TransactionAbortedException {
-            index = 0;
-            tupleIterator = getTupleIterator(index);
-        }
-
-        private Iterator<Tuple> getTupleIterator(int pageNumber) throws TransactionAbortedException, DbException {
-            if (pageNumber >= 0 && pageNumber < heapFile.numPages()) {
-                HeapPageId heapPageId = new HeapPageId(heapFile.getId(), pageNumber);
-                HeapPage heapPage = (HeapPage) Database.getBufferPool().getPage(tid, heapPageId, Permissions.READ_ONLY);
-                return heapPage.iterator();
-            } else {
-                throw new DbException(String.format("heapFile %d does not exist in page %d", heapFile.getId(), pageNumber));
-            }
-        }
-
-        @Override
-        public boolean hasNext() throws DbException, TransactionAbortedException {
-            if (tupleIterator == null) {
-                return false;
-            }
-            if (tupleIterator.hasNext()) {
-                // 如果当前页面还有元组，则返回true
-                return true;
-            } else {
-                // 如果当前页面没有元组，则切换到下一个页面
-                if (index < heapFile.numPages() - 1) {
-                    index++;
-                    tupleIterator = getTupleIterator(index);
-                    return tupleIterator.hasNext();
-                } else {
-                    return false;
-                }
-            }
-        }
-
-        @Override
-        public Tuple next() throws DbException, TransactionAbortedException, NoSuchElementException {
-            if (tupleIterator == null || !tupleIterator.hasNext()) {
-                throw new NoSuchElementException();
-            }
-            return tupleIterator.next();
-        }
-
-        @Override
-        public void rewind() throws DbException, TransactionAbortedException {
-            close();
-            open();
-        }
-
-        @Override
-        public void close() {
-            tupleIterator = null;
-        }
-    }
-
 }
 
