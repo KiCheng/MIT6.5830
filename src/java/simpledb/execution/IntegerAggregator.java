@@ -89,10 +89,6 @@ public class IntegerAggregator implements Aggregator {
         this.aggregateIndex = afield;
         this.aggOp = what;
 
-        // init map
-        this.groupCalMap = new ConcurrentHashMap<>();
-        this.resultMap = new ConcurrentHashMap<>();
-
         if (groupByIndex >= 0) {
             // 有groupBy
             this.aggDesc = new TupleDesc(new Type[]{groupByType, Type.INT_TYPE}, new String[]{"groupVal", "aggregateVal"});
@@ -100,6 +96,10 @@ public class IntegerAggregator implements Aggregator {
             // 无groupBy
             this.aggDesc = new TupleDesc(new Type[]{Type.INT_TYPE}, new String[]{"aggregateVal"});
         }
+
+        // init map
+        this.groupCalMap = new ConcurrentHashMap<>();
+        this.resultMap = new ConcurrentHashMap<>();
     }
 
     /**
@@ -119,10 +119,19 @@ public class IntegerAggregator implements Aggregator {
         if(!(tup.getField(aggregateIndex) instanceof IntField)) {
             throw new IllegalArgumentException("Expected aggType is 「IntField」, but got: " + tup.getField(aggregateIndex).getClass());
         }
+
+        // 1、store
+        groupStore(tup, groupByField);
+        // 2、cal
+        Tuple curCalTuple = calResult(groupByField);
+        // 3、update
+        resultMap.put(groupByField, curCalTuple);
+    }
+
+    public void groupStore(Tuple tup, Field groupByField) {
         IntField aggField = (IntField)tup.getField(aggregateIndex);
         int curVal = aggField.getValue();
 
-        // 1、store
         GroupCalResult groupCalResult = null;
         switch (this.aggOp) {
             // 实现SUM AVG MIN MAX COUNT
@@ -161,7 +170,9 @@ public class IntegerAggregator implements Aggregator {
                 groupCalMap.put(groupByField, groupCalResult);
                 break;
         }
-        // 2、cal
+    }
+
+    public Tuple calResult(Field groupByField) {
         Tuple curCalTuple = new Tuple(aggDesc);
         int curRes = 0;
         if(aggOp == Op.MIN || aggOp == Op.MAX || aggOp == Op.SUM) {
@@ -177,9 +188,7 @@ public class IntegerAggregator implements Aggregator {
         } else {
             curCalTuple.setField(0, new IntField(curRes));
         }
-        // 3、update
-        resultMap.put(groupByField, curCalTuple);
-
+        return curCalTuple;
     }
 
     /**

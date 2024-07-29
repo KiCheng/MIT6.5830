@@ -5,74 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7184a784-6b69-4254-a719-12a094b209fe" name="Changes" comment="lab1 solve scan bug">
-      <change afterPath="$PROJECT_DIR$/bin/src/simpledb/Parser.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/src/simpledb/ParsingException.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/src/simpledb/TupleArrayIterator.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/src/simpledb/execution/Aggregate.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/src/simpledb/execution/Aggregator$Op.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/src/simpledb/execution/Aggregator.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/src/simpledb/execution/Delete.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/src/simpledb/execution/Filter.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/src/simpledb/execution/Insert.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/src/simpledb/execution/IntegerAggregator$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/src/simpledb/execution/IntegerAggregator$GroupCalResult.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/src/simpledb/execution/IntegerAggregator$IntAggTupIterator.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/src/simpledb/execution/IntegerAggregator.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/src/simpledb/execution/Join.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/src/simpledb/execution/JoinPredicate.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/src/simpledb/execution/Operator.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/src/simpledb/execution/OrderBy.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/src/simpledb/execution/PlanCache.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/src/simpledb/execution/Project.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/src/simpledb/execution/Query.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/src/simpledb/execution/StringAggregator$StringAggTupIterator.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/src/simpledb/execution/StringAggregator.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/src/simpledb/execution/TupleComparator.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/src/simpledb/optimizer/CostCard.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/src/simpledb/optimizer/IntHistogram.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/src/simpledb/optimizer/JoinOptimizer.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/src/simpledb/optimizer/LogicalFilterNode.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/src/simpledb/optimizer/LogicalJoinNode.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/src/simpledb/optimizer/LogicalPlan.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/src/simpledb/optimizer/LogicalScanNode.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/src/simpledb/optimizer/LogicalSelectListNode.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/src/simpledb/optimizer/LogicalSubplanJoinNode.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/src/simpledb/optimizer/StringHistogram.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/src/simpledb/optimizer/TableStats.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/src/simpledb/transaction/Transaction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/depcache/dependencies.txt" beforeDir="false" afterPath="$PROJECT_DIR$/bin/depcache/dependencies.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/src/simpledb/execution/Predicate$Op.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/src/simpledb/execution/Predicate$Op.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/src/simpledb/execution/Predicate.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/src/simpledb/execution/Predicate.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/src/simpledb/execution/SeqScan.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/src/simpledb/execution/SeqScan.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/src/simpledb/storage/HeapFile$HeapFileIterator.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/src/simpledb/storage/HeapFile$HeapFileIterator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/src/simpledb/storage/HeapFile.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/src/simpledb/storage/HeapFile.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/src/simpledb/storage/HeapPage.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/src/simpledb/storage/HeapPage.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/simpledb.jar" beforeDir="false" afterPath="$PROJECT_DIR$/dist/simpledb.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/simple-db-hw-20221/simpledb/execution/Predicate$Op.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/simple-db-hw-20221/simpledb/execution/Predicate$Op.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/simple-db-hw-20221/simpledb/execution/Predicate.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/simple-db-hw-20221/simpledb/execution/Predicate.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/simple-db-hw-20221/simpledb/execution/SeqScan.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/simple-db-hw-20221/simpledb/execution/SeqScan.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/simple-db-hw-20221/simpledb/storage/HeapFile$HeapFileIterator.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/simple-db-hw-20221/simpledb/storage/HeapFile$HeapFileIterator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log" beforeDir="false" afterPath="$PROJECT_DIR$/log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/simple-db-hw-20221/simpledb/storage/BufferPool.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/simple-db-hw-20221/simpledb/storage/BufferPool.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/simple-db-hw-20221/simpledb/storage/HeapFile.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/simple-db-hw-20221/simpledb/storage/HeapFile.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/simple-db-hw-20221/simpledb/storage/HeapPage.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/simple-db-hw-20221/simpledb/storage/HeapPage.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/simple-db-hw-20221/simpledb/storage/Tuple.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/simple-db-hw-20221/simpledb/storage/Tuple.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simple-db-hw-2022.iml" beforeDir="false" afterPath="$PROJECT_DIR$/simple-db-hw-2022.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/some_data_file.dat" beforeDir="false" afterPath="$PROJECT_DIR$/some_data_file.dat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/some_data_file.txt" beforeDir="false" afterPath="$PROJECT_DIR$/some_data_file.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/simpledb/execution/Aggregate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/simpledb/execution/Aggregate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/simpledb/execution/Delete.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/simpledb/execution/Delete.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/simpledb/execution/Filter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/simpledb/execution/Filter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/simpledb/execution/Insert.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/simpledb/execution/Insert.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/simpledb/execution/IntegerAggregator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/simpledb/execution/IntegerAggregator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/simpledb/execution/Join.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/simpledb/execution/Join.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/simpledb/execution/JoinPredicate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/simpledb/execution/JoinPredicate.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/simpledb/execution/Predicate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/simpledb/execution/Predicate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/simpledb/execution/SeqScan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/simpledb/execution/SeqScan.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/simpledb/execution/StringAggregator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/simpledb/execution/StringAggregator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/simpledb/storage/BufferPool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/simpledb/storage/BufferPool.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/simpledb/storage/HeapFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/simpledb/storage/HeapFile.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/java/simpledb/storage/HeapPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/simpledb/storage/HeapPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/simple-db-hw-20221.iml" beforeDir="false" afterPath="$PROJECT_DIR$/src/simple-db-hw-20221.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,10 +59,15 @@
     "Application.SimpleDb.executor": "Run",
     "Application.test (1).executor": "Run",
     "Application.test (2).executor": "Run",
-    "Application.test.executor": "Run",
+    "Application.test.executor": "Debug",
     "Downloaded.Files.Path.Enabled": "false",
+    "JUnit.AggregateTest (1).executor": "Run",
     "JUnit.AggregateTest.executor": "Run",
+    "JUnit.BufferPoolWriteTest.executor": "Run",
     "JUnit.CatalogTest.executor": "Run",
+    "JUnit.DeleteTest.executor": "Run",
+    "JUnit.EvictionTest.executor": "Run",
+    "JUnit.FilterTest (1).executor": "Run",
     "JUnit.FilterTest.executor": "Run",
     "JUnit.HeapFileReadTest.executor": "Run",
     "JUnit.HeapFileWriteTest.executor": "Run",
@@ -123,10 +78,11 @@
     "JUnit.InsertTest.executor": "Run",
     "JUnit.IntegerAggregatorTest.executor": "Run",
     "JUnit.JoinPredicateTest.executor": "Run",
+    "JUnit.JoinTest (1).executor": "Run",
     "JUnit.JoinTest.executor": "Run",
     "JUnit.PredicateTest.executor": "Run",
     "JUnit.RecordIdTest.executor": "Run",
-    "JUnit.ScanTest.executor": "Run",
+    "JUnit.ScanTest.executor": "Debug",
     "JUnit.StringAggregatorTest.executor": "Run",
     "JUnit.TupleDescTest.executor": "Run",
     "JUnit.TupleTest.executor": "Run",
@@ -162,8 +118,8 @@
       <recent name="$PROJECT_DIR$/lib" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ScanTest">
-    <configuration name="CatalogTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.BufferPoolWriteTest">
+    <configuration name="BufferPoolWriteTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="simple-db-hw-2022" />
       <extension name="coverage">
         <pattern>
@@ -172,28 +128,13 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="simpledb" />
-      <option name="MAIN_CLASS_NAME" value="simpledb.CatalogTest" />
+      <option name="MAIN_CLASS_NAME" value="simpledb.BufferPoolWriteTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="HeapFileReadTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="simple-db-hw-2022" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="simpledb.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="simpledb" />
-      <option name="MAIN_CLASS_NAME" value="simpledb.HeapFileReadTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ScanTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DeleteTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="simple-db-hw-2022" />
       <extension name="coverage">
         <pattern>
@@ -202,13 +143,28 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="simpledb.systemtest" />
-      <option name="MAIN_CLASS_NAME" value="simpledb.systemtest.ScanTest" />
+      <option name="MAIN_CLASS_NAME" value="simpledb.systemtest.DeleteTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TupleDescTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="EvictionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="simple-db-hw-2022" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="simpledb.systemtest.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="simpledb.systemtest" />
+      <option name="MAIN_CLASS_NAME" value="simpledb.systemtest.EvictionTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="InsertTest (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="simple-db-hw-2022" />
       <extension name="coverage">
         <pattern>
@@ -217,22 +173,22 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="simpledb" />
-      <option name="MAIN_CLASS_NAME" value="simpledb.TupleDescTest" />
+      <option name="MAIN_CLASS_NAME" value="simpledb.InsertTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TupleTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="InsertTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="simple-db-hw-2022" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="simpledb.*" />
+          <option name="PATTERN" value="simpledb.systemtest.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="simpledb" />
-      <option name="MAIN_CLASS_NAME" value="simpledb.TupleTest" />
+      <option name="PACKAGE_NAME" value="simpledb.systemtest" />
+      <option name="MAIN_CLASS_NAME" value="simpledb.systemtest.InsertTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -240,11 +196,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ScanTest" />
-        <item itemvalue="JUnit.HeapFileReadTest" />
-        <item itemvalue="JUnit.CatalogTest" />
-        <item itemvalue="JUnit.TupleDescTest" />
-        <item itemvalue="JUnit.TupleTest" />
+        <item itemvalue="JUnit.BufferPoolWriteTest" />
+        <item itemvalue="JUnit.DeleteTest" />
+        <item itemvalue="JUnit.InsertTest" />
+        <item itemvalue="JUnit.InsertTest (1)" />
+        <item itemvalue="JUnit.EvictionTest" />
       </list>
     </recent_temporary>
   </component>
@@ -274,6 +230,8 @@
       <workItem from="1721113973180" duration="12286000" />
       <workItem from="1721198220142" duration="32493000" />
       <workItem from="1721567664447" duration="40340000" />
+      <workItem from="1721819887890" duration="56628000" />
+      <workItem from="1722227683312" duration="752000" />
     </task>
     <task id="LOCAL-00001" summary="lab1 solve scan bug">
       <option name="closed" value="true" />
@@ -305,6 +263,24 @@
     <MESSAGE value="lab1 with scan bug" />
     <MESSAGE value="lab1 solve scan bug" />
     <option name="LAST_COMMIT_MESSAGE" value="lab1 solve scan bug" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/java/simpledb/storage/HeapFile.java</url>
+          <line>260</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <condition expression="i=2" language="JAVA" />
+          <url>file://$PROJECT_DIR$/test/simpledb/BufferPoolWriteTest.java</url>
+          <line>111</line>
+          <option name="temporary" value="true" />
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

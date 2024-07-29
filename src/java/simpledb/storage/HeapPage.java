@@ -44,7 +44,7 @@ public class HeapPage implements Page {
     private boolean dirtyFlag;
 
     /**
-     *
+     * 产生脏页的事务id
      */
     private TransactionId dirtyTid;
 
@@ -276,8 +276,9 @@ public class HeapPage implements Page {
         // TODO: some code goes here
         int tid = t.getRecordId().getTupleNumber();
         boolean flag = false;
+
         for (int i = 0; i < tuples.length; i++) {
-            if (t.equals(tuples[i])) {
+            if(tuples[i] != null && compareTuplesByFields(t, tuples[i])) {
                 if (!isSlotUsed(i)) {
                     throw new DbException("tuple slot is already empty");
                 }
@@ -289,6 +290,24 @@ public class HeapPage implements Page {
         if (!flag) {
             throw new DbException("the tuple is not on this page");
         }
+    }
+
+    /**
+     * 比较两个tuple的字段是否相等
+     * @param t1
+     * @param t2
+     * @return
+     */
+    private boolean compareTuplesByFields(Tuple t1, Tuple t2) {
+        if (t1.getTupleDesc().equals(t2.getTupleDesc())) {
+            for (int j = 0; j < t1.getTupleDesc().numFields(); j++) {
+                if (!t1.getField(j).equals(t2.getField(j))) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
     }
 
     /**

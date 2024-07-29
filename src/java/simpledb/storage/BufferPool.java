@@ -1,9 +1,7 @@
 package simpledb.storage;
 
-import simpledb.common.Database;
-import simpledb.common.DbException;
-import simpledb.common.DeadlockException;
-import simpledb.common.Permissions;
+import lombok.val;
+import simpledb.common.*;
 import simpledb.transaction.TransactionAbortedException;
 import simpledb.transaction.TransactionId;
 
@@ -40,7 +38,10 @@ public class BufferPool {
 
     private final int numPages;
 
-    private final Map<PageId, Page> bufferPools = new ConcurrentHashMap<>();
+//    private final Map<PageId, Page> bufferPools = new ConcurrentHashMap<>();
+
+    // 将bufferPools的hashMap改为LRUCache数据结构
+    private LRUCache lruCache;
 
     /**
      * Creates a BufferPool that caches up to numPages pages.
@@ -50,7 +51,109 @@ public class BufferPool {
     public BufferPool(int numPages) {
         // TODO: some code goes here
         this.numPages = numPages;
+        this.lruCache = new LRUCache(numPages);
+    }
 
+    /**
+     * 为了实现LRU算法，需要维护一个双向链表，用于记录每个PageId的访问顺序
+     */
+    private static class LRUCache {
+        int capacity, size;
+        ConcurrentHashMap<PageId, Node> map;
+        // 头节点和尾节点：标志位无数据
+        Node head = new Node();
+        Node tail = new Node();
+
+        public LRUCache(int capacity) {
+            this.capacity = capacity;
+            this.size = 0;
+            map = new ConcurrentHashMap<>();
+            head.next = tail;
+            tail.prev = head;
+        }
+
+        public synchronized Page get(PageId key) {
+            if (map.containsKey(key)) {
+                Node node = map.get(key);
+                // 定位到链表头
+                moveToHead(node);
+                return node.val;
+            } else {
+                return null;
+            }
+        }
+
+        public synchronized void put(PageId key, Page val) {
+            if (map.containsKey(key)) {
+                // 更新value
+                Node node = map.get(key);
+                node.val = val;
+                moveToHead(node);
+            } else {
+                Node newNode = new Node(key, val);
+                map.put(key, newNode);
+                // 添加到链表头
+                addToHead(newNode);
+                size++;
+                if (size > capacity) {
+                    // 移除链表尾
+                    Node node = removeTail();
+                    map.remove(node.key);
+                    size--;
+                }
+            }
+        }
+
+        // 添加到链表头部
+        private synchronized void addToHead(Node node) {
+            node.prev = head;
+            node.next = head.next;
+            head.next.prev = node;
+            head.next = node;
+        }
+
+        // 移动到链表头部
+        private synchronized void moveToHead(Node node) {
+            // 先从原位置删除node
+            removeNode(node);
+            // 再将node插入链表头部
+            addToHead(node);
+        }
+
+        // 删除node节点
+        private void removeNode(Node node) {
+            node.prev.next = node.next;
+            node.next.prev = node.prev;
+        }
+
+        // 删除尾部节点
+        private Node removeTail() {
+            Node node = tail.prev;
+            removeNode(node);
+            return node;
+        }
+
+        private synchronized int getSize() {
+            return size;
+        }
+
+        private static class Node {
+            PageId key;
+            Page val;
+            Node prev;
+            Node next;
+
+            public Node() {}
+
+            public Node(PageId key, Page val) {
+                this.key = key;
+                this.val = val;
+            }
+        }
+
+        public Set<Map.Entry<PageId, Node>> getEntrySet() {
+            return map.entrySet();
+        }
     }
 
     public static int getPageSize() {
@@ -85,12 +188,19 @@ public class BufferPool {
     public Page getPage(TransactionId tid, PageId pid, Permissions perm)
             throws TransactionAbortedException, DbException {
         // TODO: some code goes here
-        if(!bufferPools.containsKey(pid)) {
+        if (lruCache.get(pid) == null) {
             DbFile file = Database.getCatalog().getDatabaseFile(pid.getTableId());
-            Page page = file.readPage(pid);
-            bufferPools.put(pid, page);
+            Page page = file.readPage(pid);  // 调用HeapFile的readPage方法
+            lruCache.put(pid, page);
         }
-        return bufferPools.get(pid);
+        return lruCache.get(pid);
+
+//        if(!bufferPools.containsKey(pid)) {
+//            DbFile file = Database.getCatalog().getDatabaseFile(pid.getTableId());
+//            Page page = file.readPage(pid);  // 调用HeapFile的readPage方法
+//            bufferPools.put(pid, page);
+//        }
+//        return bufferPools.get(pid);
     }
 
     /**
@@ -157,6 +267,9 @@ public class BufferPool {
             throws DbException, IOException, TransactionAbortedException {
         // TODO: some code goes here
         // not necessary for lab1
+        DbFile f = Database.getCatalog().getDatabaseFile(tableId);
+        List<Page> updatePages = f.insertTuple(tid, t);
+        updateBufferPool(updatePages, tid);
     }
 
     /**
@@ -176,6 +289,17 @@ public class BufferPool {
             throws DbException, IOException, TransactionAbortedException {
         // TODO: some code goes here
         // not necessary for lab1
+        DbFile f = Database.getCatalog().getDatabaseFile(t.getRecordId().getPageId().getTableId());
+        List<Page> updatePages = f.deleteTuple(tid, t);
+        updateBufferPool(updatePages, tid);
+    }
+
+    public void updateBufferPool(List<Page> updatePages, TransactionId id) {
+        for (Page page: updatePages) {
+            page.markDirty(true, id);  // 设置为脏页（因为在BufferPool中修改page后，和磁盘中的page不一致了）
+            // update BufferPool
+            lruCache.put(page.getId(), page);
+        }
     }
 
     /**
@@ -186,7 +310,12 @@ public class BufferPool {
     public synchronized void flushAllPages() throws IOException {
         // TODO: some code goes here
         // not necessary for lab1
-
+        for (Map.Entry<PageId, LRUCache.Node> group: lruCache.getEntrySet()) {
+            Page page = group.getValue().val;
+            if (page.isDirty() != null) {
+                flushPage(group.getKey());  // 将不是脏页的页面刷新页面到磁盘
+            }
+        }
     }
 
     /**
@@ -201,6 +330,9 @@ public class BufferPool {
     public synchronized void removePage(PageId pid) {
         // TODO: some code goes here
         // not necessary for lab1
+        if (pid != null) {
+            lruCache.map.remove(pid);
+        }
     }
 
     /**
@@ -211,6 +343,16 @@ public class BufferPool {
     private synchronized void flushPage(PageId pid) throws IOException {
         // TODO: some code goes here
         // not necessary for lab1
+        Page page = lruCache.get(pid);
+        if (page == null) {
+            return;
+        }
+        TransactionId tid = page.isDirty();
+        if (tid != null) {
+            Page before = page.getBeforeImage();
+            Database.getLogFile().logWrite(tid, before, page);
+            Database.getCatalog().getDatabaseFile(pid.getTableId()).writePage(page);
+        }
     }
 
     /**
@@ -228,6 +370,9 @@ public class BufferPool {
     private synchronized void evictPage() throws DbException {
         // TODO: some code goes here
         // not necessary for lab1
+        /**
+         * 直接在LRUCache中实现LRU算法
+         */
     }
 
 }

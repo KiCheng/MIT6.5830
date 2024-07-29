@@ -9,6 +9,7 @@ import simpledb.transaction.TransactionAbortedException;
 
 import java.util.NoSuchElementException;
 
+
 /**
  * The Aggregation operator that computes an aggregate (e.g., sum, avg, max,
  * min). Note that we only support aggregates over a single column, grouped by a
@@ -21,7 +22,7 @@ public class Aggregate extends Operator {
     /**
      * 操作符迭代器
      */
-    OpIterator[] children ;
+    OpIterator[] children;
 
     /**
      * 聚合字段索引
@@ -68,10 +69,11 @@ public class Aggregate extends Operator {
         this.groupByIndex = gfield;
         this.aggregateOp = aop;
 
+        Type groupType = gfield != Aggregator.NO_GROUPING ? child.getTupleDesc().getFieldType(gfield) : Type.STRING_TYPE;  // 如果没有分组字段，则默认为字符串类型
         if (child.getTupleDesc().getFieldType(afield) == Type.INT_TYPE) {
-            this.aggregator = new IntegerAggregator(gfield, child.getTupleDesc().getFieldType(gfield), afield, aop);
+            this.aggregator = new IntegerAggregator(gfield, groupType, afield, aop);
         } else {
-            this.aggregator = new StringAggregator(gfield, child.getTupleDesc().getFieldType(gfield), afield, aop);
+            this.aggregator = new StringAggregator(gfield, groupType, afield, aop);
         }
     }
 
@@ -172,7 +174,7 @@ public class Aggregate extends Operator {
      */
     public TupleDesc getTupleDesc() {
         // TODO: some code goes here
-        return children[0].getTupleDesc();
+        return aggregator.iterator().getTupleDesc();
     }
 
     public void close() {

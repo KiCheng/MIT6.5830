@@ -14,7 +14,7 @@ public class Filter extends Operator {
 
     private Predicate predicate;
 
-    private OpIterator[] children  ;  // 用数组的形式是为了保证数据结构的一致性
+    private OpIterator[] children;  // 用数组的形式是为了保证数据结构的一致性
 
     private static final long serialVersionUID = 1L;
 
@@ -57,7 +57,9 @@ public class Filter extends Operator {
 
     public void rewind() throws DbException, TransactionAbortedException {
         // TODO: some code goes here
-        children[0].rewind();
+        close();
+        open();
+//        children[0].rewind();
     }
 
     /**

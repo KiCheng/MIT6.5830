@@ -20,6 +20,14 @@ public class Delete extends Operator {
 
     private static final long serialVersionUID = 1L;
 
+    private TransactionId tid;
+
+    private OpIterator[] children;
+
+    private TupleDesc tupleDesc;
+
+    private Tuple deleteRes;
+
     /**
      * Constructor specifying the transaction that this delete belongs to as
      * well as the child to read from.
@@ -29,23 +37,34 @@ public class Delete extends Operator {
      */
     public Delete(TransactionId t, OpIterator child) {
         // TODO: some code goes here
+        this.tid = t;
+        this.children = new OpIterator[]{child};
+        this.tupleDesc = new TupleDesc(new Type[]{Type.INT_TYPE}, new String[]{"deleteNums"});
     }
 
     public TupleDesc getTupleDesc() {
         // TODO: some code goes here
-        return null;
+        return this.tupleDesc;
     }
 
     public void open() throws DbException, TransactionAbortedException {
         // TODO: some code goes here
+        super.open();
+        children[0].open();
+        this.deleteRes = null;  // 重置删除结果，可以调用fetchNext
     }
 
     public void close() {
         // TODO: some code goes here
+        super.close();
+        children[0].close();
+        this.deleteRes = null;
     }
 
     public void rewind() throws DbException, TransactionAbortedException {
         // TODO: some code goes here
+        close();
+        open();
     }
 
     /**
@@ -59,18 +78,34 @@ public class Delete extends Operator {
      */
     protected Tuple fetchNext() throws TransactionAbortedException, DbException {
         // TODO: some code goes here
-        return null;
+        if (deleteRes != null) {
+            return null;
+        }
+        int deleteNums = 0;
+        while (children[0].hasNext()) {
+            try {
+                Database.getBufferPool().deleteTuple(tid, children[0].next());
+                deleteNums++;
+            } catch (IOException e) {
+                System.out.println("Delete tuples from database failed!");
+                throw new RuntimeException(e);
+            }
+        }
+        deleteRes = new Tuple(this.tupleDesc);
+        deleteRes.setField(0, new IntField(deleteNums));
+        return deleteRes;
     }
 
     @Override
     public OpIterator[] getChildren() {
         // TODO: some code goes here
-        return null;
+        return this.children;
     }
 
     @Override
     public void setChildren(OpIterator[] children) {
         // TODO: some code goes here
+        this.children = children;
     }
 
 }

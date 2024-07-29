@@ -62,7 +62,7 @@ public class Insert extends Operator {
         // TODO: some code goes here
         super.open();
         children[0].open();
-        insertRes = null;
+        insertRes = null;  // 重置插入结果，可以调用fetchNext
     }
 
     public void close() {
@@ -92,21 +92,22 @@ public class Insert extends Operator {
      */
     protected Tuple fetchNext() throws TransactionAbortedException, DbException {
         // TODO: some code goes here
+        // 保证只调用一次，多次调用返回null
         if (insertRes != null) {
             return null;
         }
-        int insert = 0;
+        int insertNums = 0;
         while (children[0].hasNext()) {
             try {
                 Database.getBufferPool().insertTuple(tid, tableId, children[0].next());
-                insert++;
+                insertNums++;
             } catch (IOException e) {
                 System.out.println("Insert tuples into database failed!");
                 throw new RuntimeException(e);
             }
         }
-        insertRes = new Tuple(tupleDesc);
-        insertRes.setField(0, new IntField(insert));
+        insertRes = new Tuple(tupleDesc);  // 计算插入操作影响的行数
+        insertRes.setField(0, new IntField(insertNums));
         return insertRes;
     }
 

@@ -224,9 +224,11 @@ public class HeapFile implements DbFile {
     }
 
     // see DbFile.java for javadocs
+
     public List<Page> insertTuple(TransactionId tid, Tuple t)
             throws DbException, IOException, TransactionAbortedException {
         // TODO: some code goes here
+        // not necessary for lab1
         ArrayList<Page> pageList = new ArrayList<>();
         for (int i = 0; i < numPages(); i++) {
             HeapPage p = (HeapPage) Database.getBufferPool().getPage(tid, new HeapPageId(getId(), i),
@@ -235,7 +237,7 @@ public class HeapFile implements DbFile {
                 // 当前页面没有空闲槽位
                 continue;
             }
-            p.insertTuple(t);
+            p.insertTuple(t);  // 调用HeapPage的insertTuple方法
             pageList.add(p);
             return pageList;
         }
@@ -251,7 +253,6 @@ public class HeapFile implements DbFile {
         pageList.add(p);
         return pageList;
     }
-
     // see DbFile.java for javadocs
     public List<Page> deleteTuple(TransactionId tid, Tuple t) throws DbException,
             TransactionAbortedException {
