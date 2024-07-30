@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7184a784-6b69-4254-a719-12a094b209fe" name="Changes" comment="lab2:finished">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log" beforeDir="false" afterPath="$PROJECT_DIR$/log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/simple-db-hw-20221/simpledb/storage/HeapPage.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/simple-db-hw-20221/simpledb/storage/HeapPage.class" afterDir="false" />
-    </list>
+    <list default="true" id="7184a784-6b69-4254-a719-12a094b209fe" name="Changes" comment="lab2:finished" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
