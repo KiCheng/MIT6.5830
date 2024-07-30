@@ -4,25 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7184a784-6b69-4254-a719-12a094b209fe" name="Changes" comment="lab1 solve scan bug">
+    <list default="true" id="7184a784-6b69-4254-a719-12a094b209fe" name="Changes" comment="lab2:finished">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/src/simpledb/execution/SeqScan.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/src/simpledb/execution/SeqScan.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/simpledb.jar" beforeDir="false" afterPath="$PROJECT_DIR$/dist/simpledb.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/log" beforeDir="false" afterPath="$PROJECT_DIR$/log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/simple-db-hw-20221/simpledb/storage/BufferPool.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/simple-db-hw-20221/simpledb/storage/BufferPool.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/simple-db-hw-20221/simpledb/storage/HeapFile.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/simple-db-hw-20221/simpledb/storage/HeapFile.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/some_data_file.dat" beforeDir="false" afterPath="$PROJECT_DIR$/some_data_file.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/some_data_file.txt" beforeDir="false" afterPath="$PROJECT_DIR$/some_data_file.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/simpledb/execution/Aggregate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/simpledb/execution/Aggregate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/simpledb/execution/Delete.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/simpledb/execution/Delete.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/simpledb/execution/Filter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/simpledb/execution/Filter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/simpledb/execution/Insert.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/simpledb/execution/Insert.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/simpledb/execution/IntegerAggregator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/simpledb/execution/IntegerAggregator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/simpledb/execution/Join.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/simpledb/execution/Join.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/simpledb/execution/Predicate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/simpledb/execution/Predicate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/simpledb/storage/BufferPool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/simpledb/storage/BufferPool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/simpledb/storage/HeapFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/simpledb/storage/HeapFile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/simpledb/storage/HeapPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/simpledb/storage/HeapPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/simple-db-hw-20221/simpledb/storage/HeapPage.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/simple-db-hw-20221/simpledb/storage/HeapPage.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,60 +38,60 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Application.SimpleDb.executor": "Run",
-    "Application.test (1).executor": "Run",
-    "Application.test (2).executor": "Run",
-    "Application.test.executor": "Debug",
-    "Downloaded.Files.Path.Enabled": "false",
-    "JUnit.AggregateTest (1).executor": "Run",
-    "JUnit.AggregateTest.executor": "Run",
-    "JUnit.BufferPoolWriteTest.executor": "Run",
-    "JUnit.CatalogTest.executor": "Run",
-    "JUnit.DeleteTest.executor": "Run",
-    "JUnit.EvictionTest.executor": "Run",
-    "JUnit.FilterTest (1).executor": "Run",
-    "JUnit.FilterTest.executor": "Run",
-    "JUnit.HeapFileReadTest.executor": "Run",
-    "JUnit.HeapFileWriteTest.executor": "Run",
-    "JUnit.HeapPageIdTest.executor": "Run",
-    "JUnit.HeapPageReadTest.executor": "Run",
-    "JUnit.HeapPageWriteTest.executor": "Run",
-    "JUnit.InsertTest (1).executor": "Run",
-    "JUnit.InsertTest.executor": "Run",
-    "JUnit.IntegerAggregatorTest.executor": "Run",
-    "JUnit.JoinPredicateTest.executor": "Run",
-    "JUnit.JoinTest (1).executor": "Run",
-    "JUnit.JoinTest.executor": "Run",
-    "JUnit.PredicateTest.executor": "Run",
-    "JUnit.RecordIdTest.executor": "Run",
-    "JUnit.ScanTest.executor": "Debug",
-    "JUnit.StringAggregatorTest.executor": "Run",
-    "JUnit.TupleDescTest.executor": "Run",
-    "JUnit.TupleTest.executor": "Run",
-    "JUnit.TupleTest.getTupleDesc.executor": "Run",
-    "JUnit.TupleTest.modifyFields.executor": "Run",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "lab2",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/kicheng/kicheng_code/MIT6.5830/simple-db-hw-2022/lib",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "configurable.group.editor",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Application.SimpleDb.executor&quot;: &quot;Run&quot;,
+    &quot;Application.test (1).executor&quot;: &quot;Run&quot;,
+    &quot;Application.test (2).executor&quot;: &quot;Run&quot;,
+    &quot;Application.test.executor&quot;: &quot;Debug&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;JUnit.AggregateTest (1).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.AggregateTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.BufferPoolWriteTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CatalogTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DeleteTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.EvictionTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.FilterTest (1).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.FilterTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.HeapFileReadTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.HeapFileWriteTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.HeapPageIdTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.HeapPageReadTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.HeapPageWriteTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.InsertTest (1).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.InsertTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.IntegerAggregatorTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.JoinPredicateTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.JoinTest (1).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.JoinTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PredicateTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.RecordIdTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ScanTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.StringAggregatorTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TupleDescTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TupleTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TupleTest.getTupleDesc.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TupleTest.modifyFields.executor&quot;: &quot;Run&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;lab2&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/kicheng/kicheng_code/MIT6.5830/simple-db-hw-2022/lib&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.editor&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/lib" />
@@ -149,21 +134,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="EvictionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="simple-db-hw-2022" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="simpledb.systemtest.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="simpledb.systemtest" />
-      <option name="MAIN_CLASS_NAME" value="simpledb.systemtest.EvictionTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="InsertTest (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="simple-db-hw-2022" />
       <extension name="coverage">
@@ -194,13 +164,28 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ScanTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="simple-db-hw-2022" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="simpledb.systemtest.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="simpledb.systemtest" />
+      <option name="MAIN_CLASS_NAME" value="simpledb.systemtest.ScanTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.BufferPoolWriteTest" />
         <item itemvalue="JUnit.DeleteTest" />
-        <item itemvalue="JUnit.InsertTest" />
         <item itemvalue="JUnit.InsertTest (1)" />
-        <item itemvalue="JUnit.EvictionTest" />
+        <item itemvalue="JUnit.InsertTest" />
+        <item itemvalue="JUnit.ScanTest" />
       </list>
     </recent_temporary>
   </component>
@@ -231,7 +216,9 @@
       <workItem from="1721198220142" duration="32493000" />
       <workItem from="1721567664447" duration="40340000" />
       <workItem from="1721819887890" duration="56628000" />
-      <workItem from="1722227683312" duration="752000" />
+      <workItem from="1722227683312" duration="955000" />
+      <workItem from="1722243139466" duration="1932000" />
+      <workItem from="1722321613048" duration="3170000" />
     </task>
     <task id="LOCAL-00001" summary="lab1 solve scan bug">
       <option name="closed" value="true" />
@@ -241,7 +228,15 @@
       <option name="project" value="LOCAL" />
       <updated>1721035882898</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="lab2:finished">
+      <option name="closed" value="true" />
+      <created>1722228461968</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1722228461968</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -262,7 +257,8 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="lab1 with scan bug" />
     <MESSAGE value="lab1 solve scan bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="lab1 solve scan bug" />
+    <MESSAGE value="lab2:finished" />
+    <option name="LAST_COMMIT_MESSAGE" value="lab2:finished" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
