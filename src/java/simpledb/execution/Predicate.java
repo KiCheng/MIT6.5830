@@ -13,6 +13,21 @@ public class Predicate implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
+     * 在元组中传递进行比较的字段
+     */
+    private int fieldIndex;
+
+    /**
+     * 用于比较的操作符
+     */
+    private Op op;
+
+    /**
+     * 用于比较的字段值(运算对象)
+     */
+    private Field operand;
+
+    /**
      * Constants used for return codes in Field.compare
      */
     public enum Op implements Serializable {
@@ -45,7 +60,6 @@ public class Predicate implements Serializable {
                 return "<>";
             throw new IllegalStateException("impossible to reach here");
         }
-
     }
 
     /**
@@ -57,6 +71,9 @@ public class Predicate implements Serializable {
      */
     public Predicate(int field, Op op, Field operand) {
         // TODO: some code goes here
+        this.fieldIndex = field;
+        this.op = op;
+        this.operand = operand;
     }
 
     /**
@@ -64,7 +81,7 @@ public class Predicate implements Serializable {
      */
     public int getField() {
         // TODO: some code goes here
-        return -1;
+        return fieldIndex;
     }
 
     /**
@@ -72,7 +89,7 @@ public class Predicate implements Serializable {
      */
     public Op getOp() {
         // TODO: some code goes here
-        return null;
+        return op;
     }
 
     /**
@@ -80,7 +97,7 @@ public class Predicate implements Serializable {
      */
     public Field getOperand() {
         // TODO: some code goes here
-        return null;
+        return operand;
     }
 
     /**
@@ -94,7 +111,8 @@ public class Predicate implements Serializable {
      */
     public boolean filter(Tuple t) {
         // TODO: some code goes here
-        return false;
+        Field otherOperand = t.getField(fieldIndex);  // tuple对应字段
+        return otherOperand.compare(op, operand);
     }
 
     /**
@@ -103,6 +121,6 @@ public class Predicate implements Serializable {
      */
     public String toString() {
         // TODO: some code goes here
-        return "";
+        return String.format("f = %d op = %s operand = %s", fieldIndex, op, operand);
     }
 }

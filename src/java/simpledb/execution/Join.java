@@ -12,6 +12,16 @@ import java.util.NoSuchElementException;
  */
 public class Join extends Operator {
 
+    private JoinPredicate joinPredicate;
+
+    private Tuple curTuple;  // 为fetchNext方法提供的当前元组
+
+    /**
+     * children[0]: 需要连接的左操作符
+     * children[1]: 需要连接的右操作符
+     */
+    private OpIterator[] children;
+
     private static final long serialVersionUID = 1L;
 
     /**
@@ -24,11 +34,15 @@ public class Join extends Operator {
      */
     public Join(JoinPredicate p, OpIterator child1, OpIterator child2) {
         // TODO: some code goes here
+        this.joinPredicate = p;
+        this.children = new OpIterator[2];
+        this.children[0] = child1;
+        this.children[1] = child2;
     }
 
     public JoinPredicate getJoinPredicate() {
         // TODO: some code goes here
-        return null;
+        return joinPredicate;
     }
 
     /**
@@ -37,7 +51,7 @@ public class Join extends Operator {
      */
     public String getJoinField1Name() {
         // TODO: some code goes here
-        return null;
+        return children[0].getTupleDesc().getFieldName(joinPredicate.getField1());
     }
 
     /**
@@ -46,29 +60,39 @@ public class Join extends Operator {
      */
     public String getJoinField2Name() {
         // TODO: some code goes here
-        return null;
+        return children[1].getTupleDesc().getFieldName(joinPredicate.getField2());
     }
 
     /**
-     * @see TupleDesc#merge(TupleDesc, TupleDesc) for possible
+     * @see TupleDesc #merge(TupleDesc, TupleDesc) for possible
      *         implementation logic.
      */
     public TupleDesc getTupleDesc() {
         // TODO: some code goes here
-        return null;
+        return TupleDesc.merge(children[0].getTupleDesc(), children[1].getTupleDesc());
     }
 
     public void open() throws DbException, NoSuchElementException,
             TransactionAbortedException {
         // TODO: some code goes here
+        super.open();
+        children[0].open();
+        children[1].open();
     }
 
     public void close() {
         // TODO: some code goes here
+        super.close();
+        children[0].close();
+        children[1].close();
     }
 
     public void rewind() throws DbException, TransactionAbortedException {
         // TODO: some code goes here
+//        children[0].rewind();
+//        children[1].rewind();
+        close();
+        open();
     }
 
     /**
@@ -91,18 +115,42 @@ public class Join extends Operator {
      */
     protected Tuple fetchNext() throws TransactionAbortedException, DbException {
         // TODO: some code goes here
+        while (children[0].hasNext() || curTuple != null) {
+            if (curTuple == null)
+                curTuple = children[0].next();
+            Tuple rightTuple;
+            while(children[1].hasNext()) {
+                rightTuple = children[1].next();
+                if (joinPredicate.filter(curTuple, rightTuple)) {
+                    int len1 = curTuple.getTupleDesc().numFields();
+                    int len2 = rightTuple.getTupleDesc().numFields();
+                    Tuple combiTuple = new Tuple(getTupleDesc());
+                    // join后的元组字段数等于左右两个元组字段数之和
+                    for (int i = 0; i < len1; i++) {
+                        combiTuple.setField(i, curTuple.getField(i));
+                    }
+                    for (int i = 0; i < len2; i++) {
+                        combiTuple.setField(i + len1, rightTuple.getField(i));
+                    }
+                    return combiTuple;
+                }
+            }
+            curTuple = null;
+            children[1].rewind();  // 重置右侧子操作符的迭代器到初始状态
+        }
         return null;
     }
 
     @Override
     public OpIterator[] getChildren() {
         // TODO: some code goes here
-        return null;
+        return children;
     }
 
     @Override
     public void setChildren(OpIterator[] children) {
         // TODO: some code goes here
+        this.children = children;
     }
 
 }
