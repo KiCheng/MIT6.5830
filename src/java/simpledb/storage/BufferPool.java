@@ -1,6 +1,6 @@
 package simpledb.storage;
 
-import lombok.val;
+
 import simpledb.common.*;
 import simpledb.transaction.TransactionAbortedException;
 import simpledb.transaction.TransactionId;
