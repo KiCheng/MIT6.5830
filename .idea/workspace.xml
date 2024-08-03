@@ -4,20 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7184a784-6b69-4254-a719-12a094b209fe" name="Changes" comment="lab3:init for test">
-      <change afterPath="$PROJECT_DIR$/src/java/simpledb/test2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log" beforeDir="false" afterPath="$PROJECT_DIR$/log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/simple-db-hw-20221/simpledb/optimizer/IntHistogram.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/simple-db-hw-20221/simpledb/optimizer/IntHistogram.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/simple-db-hw-20221/simpledb/optimizer/JoinOptimizer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/simple-db-hw-20221/simpledb/optimizer/JoinOptimizer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/simple-db-hw-20221/simpledb/optimizer/TableStats.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/simple-db-hw-20221/simpledb/optimizer/TableStats.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/simple-db-hw-20221/simpledb/storage/BufferPool$LRUCache$Node.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/simple-db-hw-20221/simpledb/storage/BufferPool$LRUCache$Node.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/simple-db-hw-20221/simpledb/storage/BufferPool$LRUCache.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/simple-db-hw-20221/simpledb/storage/BufferPool$LRUCache.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/simpledb/optimizer/IntHistogram.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/simpledb/optimizer/IntHistogram.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/simpledb/optimizer/JoinOptimizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/simpledb/optimizer/JoinOptimizer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/simpledb/optimizer/TableStats.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/simpledb/optimizer/TableStats.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/simpledb/storage/BufferPool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/simpledb/storage/BufferPool.java" afterDir="false" />
-    </list>
+    <list default="true" id="7184a784-6b69-4254-a719-12a094b209fe" name="Changes" comment="lab3:finished" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -269,7 +256,15 @@
       <option name="project" value="LOCAL" />
       <updated>1722329177011</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="lab3:finished">
+      <option name="closed" value="true" />
+      <created>1722564520916</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1722564520916</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -292,7 +287,8 @@
     <MESSAGE value="lab1 solve scan bug" />
     <MESSAGE value="lab2:finished" />
     <MESSAGE value="lab3:init for test" />
-    <option name="LAST_COMMIT_MESSAGE" value="lab3:init for test" />
+    <MESSAGE value="lab3:finished" />
+    <option name="LAST_COMMIT_MESSAGE" value="lab3:finished" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
