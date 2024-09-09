@@ -235,6 +235,8 @@ public class HeapFile implements DbFile {
                     Permissions.READ_WRITE);
             if (p.getNumUnusedSlots() == 0) {
                 // 当前页面没有空闲槽位
+                // lab4 解锁
+                Database.getBufferPool().unsafeReleasePage(tid, p.getId());
                 continue;
             }
             p.insertTuple(t);  // 调用HeapPage的insertTuple方法
@@ -253,6 +255,7 @@ public class HeapFile implements DbFile {
         pageList.add(p);
         return pageList;
     }
+
     // see DbFile.java for javadocs
     public List<Page> deleteTuple(TransactionId tid, Tuple t) throws DbException,
             TransactionAbortedException {
@@ -260,6 +263,7 @@ public class HeapFile implements DbFile {
         // not necessary for lab1
         HeapPage p = (HeapPage) Database.getBufferPool().getPage(tid, t.getRecordId().getPageId(), Permissions.READ_WRITE);
         p.deleteTuple(t);
+        p.markDirty(true, tid);   // 删除页是否需要标记脏页？？？
         return Collections.singletonList(p);
     }
 
