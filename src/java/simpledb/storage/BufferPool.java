@@ -440,8 +440,12 @@ public class BufferPool {
         }
         TransactionId tid = page.isDirty();
         if (tid != null) {
+            /**
+             * add before lab6
+             */
             Page before = page.getBeforeImage();
             Database.getLogFile().logWrite(tid, before, page);
+            Database.getLogFile().force();
             Database.getCatalog().getDatabaseFile(pid.getTableId()).writePage(page);
         }
     }
@@ -452,13 +456,13 @@ public class BufferPool {
     public synchronized void flushPages(TransactionId tid) throws IOException {
         // TODO: some code goes here
         // not necessary for lab1|lab2
-
         for (Map.Entry<PageId, LRUCache.Node> group: lruCache.getEntrySet()) {
             PageId pageId = group.getKey();
             Page flushPage = group.getValue().val;
             TransactionId dirtyTid = flushPage.isDirty();
             Page before = flushPage.getBeforeImage();
             // 涉及到事务提交就应该setBeforeImage，更新数据，方便后续事务终止能够回退到该版本
+            flushPage.setBeforeImage();  // add before lab6
             if (dirtyTid != null && dirtyTid.equals(tid)) {
                 Database.getLogFile().logWrite(tid, before, flushPage);
                 Database.getCatalog().getDatabaseFile(pageId.getTableId()).writePage(flushPage);
